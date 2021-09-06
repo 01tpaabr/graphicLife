@@ -2,8 +2,8 @@
 // of the view and a radius of 30:
 var path = new Path.Circle({
 	center: view.center,
-	radius: 30,
-	strokeColor: 'black'
+	radius: 245,
+	strokeColor: 'pink'
 });
 
 function onResize(event) {
