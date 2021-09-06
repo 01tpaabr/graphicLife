@@ -15,23 +15,11 @@ var resolution = 30;
 var xDist = viewX/resolution;
 var yDist = viewY/resolution;
 
-var centersList = [];
-path = new Path();
-path.strokeColor = 'red';
-
-
-for (var i = 0; i <= resolution; i++) {
-	var newColumn = []
-	for(var j = 0; j <= resolution; j++){
-		var newPoint = new Point(i * xDist, j * yDist);
-		newColumn.push(newPoint);
-		
-	}
-
-	centersList.push(newColumn);
-}
 
 //Operators
+var basicCirclePath = new Path.Circle(new Point(0,0), 3)
+basicCirclePath.fillColor = 'grey';
+
 var continueCirclePath = new Path.Circle(new Point(0,0), 3)
 continueCirclePath.fillColor = 'white';
 
@@ -41,9 +29,35 @@ stopCirclePath.fillColor = 'red';
 var changeDirCirclePath = new Path.Circle(new Point(0,0), 3)
 changeDirCirclePath.fillColor = 'blue';
 
+var basicCircle = new SymbolDefinition(basicCirclePath);
 var continueCircle = new SymbolDefinition(continueCirclePath);
 var stopCircle = new SymbolDefinition(stopCirclePath);
 var changeDirCircle = new SymbolDefinition(changeDirCirclePath);
+
+var lastKey = 'q';
+var keysList = ['q', 'w', 'e', 'r'];
+var symbolsList = [basicCircle, continueCircle, stopCircle, changeDirCircle];
+
+
+//Grid
+var centersList = [];
+var gridList = [];
+
+for (var i = 0; i <= resolution; i++) {
+	var newColumn = []
+	var newGridColumn = [];
+	for(var j = 0; j <= resolution; j++){
+		var newPoint = new Point(i * xDist, j * yDist);
+		newColumn.push(newPoint);
+		
+		var instance = symbolsList[0].place();
+		instance.position = newPoint;
+		newGridColumn.push(instance);
+		
+	}
+	centersList.push(newColumn);
+	gridList.push(newGridColumn);
+}
 
 function onResize(event) {
 	var diff = view.center - oldViewCenter;
@@ -60,9 +74,7 @@ function onFrame(event) {
 
 }
 
-var lastKey = 'q';
-var keysList = ['q', 'w', 'e'];
-var symbolsList = [continueCircle, stopCircle, changeDirCircle];
+
 
 function onMouseDown(event) {
 	//Finding out where clicked inside grid
@@ -82,7 +94,7 @@ function onMouseDown(event) {
 }
 
 function onKeyDown(event) {
-	if(event.key == 'q' || event.key == 'w' || event.key == 'e'){
+	if(event.key == 'q' || event.key == 'w' || event.key == 'e' || event.key == 'r'){
 		lastKey = event.key;
 	}
 }
