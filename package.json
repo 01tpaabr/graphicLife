@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "browserify": "^17.0.0",
+    "fs": "0.0.1-security",
     "http-server": "^13.1.0",
     "paper": "^0.12.15"
   }
